@@ -1,0 +1,13 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { authors, publishedEntries, url } from '../lib/content';
+const entries = await publishedEntries();
+---
+<SiteLayout title="Our team">
+  <section class="page-heading wrap"><p class="eyebrow">THE PEOPLE BEHIND THE PANDA</p><h1>Three perspectives.<br /><em>One shared world.</em></h1><p>We are a three-person HKCT Final Year Project team, bringing gameplay, character art and ideas together in Bamboo Vanguard.</p></section>
+  <section class="team-grid wrap" aria-label="Project members">{Object.entries(authors).map(([id, author], index) => {
+    const count = entries.filter(entry => entry.data.authors.some(authorId => authorId === id)).length;
+    return <article class="team-card"><div class="team-card-top"><span class="team-avatar">{author.initials}</span><span class="eyebrow">0{index + 1}</span></div><p class="eyebrow">{author.role}</p><h2>{author.name}</h2><p>{author.description}</p><div class="team-card-bottom">{count > 0 ? <a class="text-link" href={url(`journal/?author=${id}`)}>View contributions <span aria-hidden="true">↗</span></a> : <span>Contribution update to come</span>}</div></article>;
+  })}</section>
+  <section class="team-principles wrap"><p class="eyebrow">HOW WE WORK</p><h2>Make. Test. Learn. Repeat.</h2><p>We build small prototypes, review the results together and keep a record of what changes. Each journal entry names its contributors and distinguishes finished work from the next experiment.</p><a class="button" href={url('journal/')}>See what we're making <span aria-hidden="true">↗</span></a></section>
+</SiteLayout>

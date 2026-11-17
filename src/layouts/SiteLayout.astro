@@ -1,7 +1,12 @@
 ---
 import { url } from '../lib/content';
+import Mark from '../components/Mark.astro';
+import '../styles/global.css';
 interface Props { title: string; description?: string; }
 const { title, description = 'The development journal of Bamboo Vanguard, a dual-form action game. Follow our gameplay prototypes, panda character art and monthly progress.' } = Astro.props;
+const navigation = [{ label: 'Overview', path: '' }, { label: 'Journal', path: 'journal/' }, { label: 'Gallery', path: 'gallery/' }, { label: 'Our team', path: 'team/' }];
+const active = (path: string) => path ? Astro.url.pathname.startsWith(url(path)) : Astro.url.pathname === url();
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 <!doctype html>
 <html lang="en">
@@ -9,11 +14,48 @@ const { title, description = 'The development journal of Bamboo Vanguard, a dual
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#203f33" />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={`${title} · Bamboo Vanguard`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <title>{title} · Bamboo Vanguard</title>
   </head>
   <body>
-    <header><a href={url()}>Bamboo Vanguard</a><nav aria-label="Main navigation"><a href={url('journal/')}>Journal</a></nav></header>
-    <main><slot /></main>
-    <footer>A student game, one step at a time.</footer>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href={url()} aria-label="Bamboo Vanguard home"><Mark /><span>Bamboo<span class="brand-second">Vanguard</span></span></a>
+        <nav class="desktop-nav" aria-label="Main navigation">{navigation.map((item) => <a href={url(item.path)} aria-current={active(item.path) ? 'page' : undefined}>{item.label}</a>)}</nav>
+        <span class="header-note"><span class="status-dot"></span>A game in the making</span>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open navigation">Menu <span aria-hidden="true">☰</span></button>
+      </div>
+      <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation" hidden>{navigation.map((item) => <a href={url(item.path)} aria-current={active(item.path) ? 'page' : undefined}>{item.label}<span aria-hidden="true">↗</span></a>)}</nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-main"><a class="brand" href={url()}><Mark /><span>Bamboo<span class="brand-second">Vanguard</span></span></a><p>A student game, one step at a time.<br />Made with curiosity. Documented with care.</p><a class="text-link" href={url('journal/')}>Explore the journal <span aria-hidden="true">↗</span></a></div>
+      <div class="footer-bottom"><span>© 2026 Bamboo Vanguard</span><span>HKCT · Final Year Project · 2026–27</span><a href="#main">Back to top ↑</a></div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const menu = document.querySelector<HTMLElement>('#mobile-navigation');
+      toggle?.addEventListener('click', () => {
+        if (!menu) return;
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        menu.hidden = !open;
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && toggle && menu && !menu.hidden) {
+          menu.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open navigation');
+          toggle.focus();
+        }
+      });
+    </script>
   </body>
 </html>

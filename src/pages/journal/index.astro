@@ -1,9 +1,45 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { publishedEntries, url } from '../../lib/content';
+import { authors, publishedEntries } from '../../lib/content';
+import EntryCard from '../../components/EntryCard.astro';
 const entries = await publishedEntries();
+const categories = ['All entries', 'Monthly report', 'Programming', 'Art', 'Level design'];
 ---
 <SiteLayout title="Development journal">
-  <h1>Development journal</h1>
-  {entries.map((entry) => <article><h2><a href={url(`journal/${entry.id}/`)}>{entry.data.title}</a></h2><p>{entry.data.description}</p></article>)}
+  <section class="page-heading wrap"><p class="eyebrow">IDEAS. ITERATIONS. LITTLE BREAKTHROUGHS.</p><h1>The development<br /><em>journal.</em></h1><p>A record of what we made, what we learned, and where we're going next.</p></section>
+  <section class="journal-section wrap" aria-label="Journal entries">
+    <div class="journal-tools"><div class="filter-buttons" role="group" aria-label="Filter by category">{categories.map((category) => <button data-category={category} aria-pressed={category === 'All entries' ? 'true' : 'false'}>{category === 'Monthly report' ? 'Monthly reports' : category}</button>)}</div><div class="search-row"><label class="search-box"><span aria-hidden="true">⌕</span><input id="journal-search" type="search" placeholder="Search the journal…" aria-label="Search the journal" /></label><label class="author-filter"><span class="sr-only">Filter by author</span><select id="author-filter" aria-label="Filter by author"><option value="all">All authors</option>{Object.entries(authors).map(([id, author]) => <option value={id}>{author.name}</option>)}</select></label></div></div>
+    <div class="list-label"><span>THE ARCHIVE</span><span id="result-count" aria-live="polite">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</span></div>
+    <div class="journal-list">{entries.map((entry) => <div data-entry data-category={entry.data.category} data-authors={entry.data.authors.join(',')} data-search={`${entry.data.title} ${entry.data.description} ${entry.data.category} ${entry.data.authors.map(id => authors[id].name).join(' ')} ${entry.body ?? ''}`.toLowerCase()}><EntryCard entry={entry} /></div>)}</div>
+    <div id="no-results" class="empty-state" hidden><span class="eyebrow">A LITTLE QUIET HERE</span><h2>No matching entries.</h2><p>Try a different search, category or author.</p><button id="clear-filters" class="button">Clear filters <span aria-hidden="true">↗</span></button></div>
+  </section>
+  <script>
+    const search = document.querySelector<HTMLInputElement>('#journal-search');
+    const author = document.querySelector<HTMLSelectElement>('#author-filter');
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-category][aria-pressed]')];
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-entry]')];
+    const count = document.querySelector<HTMLElement>('#result-count');
+    const empty = document.querySelector<HTMLElement>('#no-results');
+    let category = 'All entries';
+    const requestedAuthor = new URLSearchParams(location.search).get('author');
+    if (author && requestedAuthor && [...author.options].some(option => option.value === requestedAuthor)) author.value = requestedAuthor;
+    function filter() {
+      const query = search?.value.trim().toLowerCase() ?? '';
+      let visible = 0;
+      for (const card of cards) {
+        const matchCategory = category === 'All entries' || card.dataset.category === category;
+        const matchAuthor = !author || author.value === 'all' || card.dataset.authors?.split(',').includes(author.value);
+        card.hidden = !(matchCategory && matchAuthor && card.dataset.search?.includes(query));
+        if (!card.hidden) visible++;
+      }
+      if (count) count.textContent = `${visible} ${visible === 1 ? 'entry' : 'entries'}`;
+      if (empty) empty.hidden = visible > 0;
+      buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
+    }
+    buttons.forEach(button => button.addEventListener('click', () => { category = button.dataset.category ?? 'All entries'; filter(); }));
+    search?.addEventListener('input', filter);
+    author?.addEventListener('change', filter);
+    document.querySelector('#clear-filters')?.addEventListener('click', () => { category = 'All entries'; if (search) search.value = ''; if (author) author.value = 'all'; filter(); search?.focus(); });
+    filter();
+  </script>
 </SiteLayout>

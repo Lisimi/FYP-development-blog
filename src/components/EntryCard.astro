@@ -1,0 +1,17 @@
+---
+import { authorNames, entryPeriod, url, type JournalEntry } from '../lib/content';
+interface Props { entry: JournalEntry; }
+const { entry } = Astro.props;
+---
+<article class="entry-card">
+  <a class="entry-image" href={url(`journal/${entry.id}/`)} tabindex="-1" aria-hidden="true">
+    <img src={url(entry.data.cover)} alt="" width="800" height="800" loading="lazy" />
+    <span class="image-label">FIELD NOTES / {entryPeriod(entry)}</span>
+  </a>
+  <div class="entry-copy">
+    <div class="eyebrow"><span class="status-dot"></span>{entry.data.category}<span class="meta-divider">/</span>{entryPeriod(entry)}</div>
+    <h3><a href={url(`journal/${entry.id}/`)}>{entry.data.title}<span aria-hidden="true">↗</span></a></h3>
+    <p>{entry.data.description}</p>
+    <div class="entry-byline"><span class="avatar-stack" aria-hidden="true">{entry.data.authors.map((author) => <span>{author === 'li-shimin' ? 'LS' : author === 'chau-chi-chung' ? 'CC' : 'LM'}</span>)}</span><span>{authorNames(entry)}</span></div>
+  </div>
+</article>

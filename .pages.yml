@@ -1,0 +1,77 @@
+media:
+  input: public/images
+  output: /images
+  extensions: [png, jpg, jpeg, webp]
+  rename: safe
+
+content:
+  - name: journal
+    label: Development journal
+    type: collection
+    path: src/content/journal
+    format: yaml-frontmatter
+    subfolders: false
+    filename:
+      template: '{primary}.md'
+      field: create
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Short summary
+        type: text
+        required: true
+      - name: date
+        label: Date prepared
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: reportingMonth
+        label: Reporting month
+        type: string
+        description: 'For monthly reports, use YYYY-MM (for example 2026-11). Otherwise leave unset.'
+        pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+      - name: authors
+        label: Contributors
+        type: select
+        required: true
+        options:
+          multiple: true
+          min: 1
+          values:
+            - name: li-shimin
+              label: LI Shimin
+            - name: chau-chi-chung
+              label: Chau Chi Chung
+            - name: lam-man-ho
+              label: Lam Man Ho
+      - name: category
+        label: Category
+        type: select
+        required: true
+        default: Monthly report
+        options:
+          values: [Monthly report, Programming, Art, Level design]
+      - name: cover
+        label: Cover image
+        type: image
+        required: true
+      - name: coverAlt
+        label: Cover image description
+        type: string
+        required: true
+      - name: draft
+        label: Draft (hidden from the website)
+        type: boolean
+        default: true
+      - name: body
+        label: Entry content
+        type: rich-text
+        required: true

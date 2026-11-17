@@ -8,7 +8,10 @@ const journal = defineCollection({
     title: z.string().min(1),
     description: z.string().min(1),
     date: z.coerce.date(),
-    reportingMonth: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/).optional(),
+    reportingMonth: z.preprocess(
+      (value) => value === '' ? undefined : value,
+      z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/).optional(),
+    ),
     authors: z.array(z.enum(['li-shimin', 'chau-chi-chung', 'lam-man-ho'])).min(1),
     category: z.enum(['Monthly report', 'Programming', 'Art', 'Level design']),
     cover: z.string().regex(/^\/images\//),

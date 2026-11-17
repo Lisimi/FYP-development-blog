@@ -97,6 +97,14 @@
 - 日常流程：組員登入 CMS、編輯日誌、儲存至 `master`，由 Actions 建置部署；草稿保持 `draft: true`，正式文章設為 `false`。
 - 後續本地開發前先同步 GitHub，避免覆蓋 CMS 更新。獨立圖集項目仍在 `src/data/gallery.ts` 維護。
 
+### 組員操作文件（2026-11-17）
+
+- 新增 `docs/PAGES_CMS_TEAM_GUIDE.md`，以繁體中文說明登入、新增日誌、實際英文欄位、封面與正文圖片、草稿保存、發布及修改已發布文章。
+- 對照 `.pages.yml` 核對欄位、分類、作者、圖片格式及 Draft 預設行為；對照 Pages CMS 官方 rich-text、media、collaborators 文件，附來源連結。
+- 說明公開倉庫草稿的可見性、已發布文章儲存後會部署，以及圖片上傳不自動更新獨立圖集。
+- README 加入組員指南入口。完成 Markdown 相對連結與 diff 格式檢查；僅變更文件，未修改網站功能或部署配置，未重跑應用建置。
+- 本階段建立本地 Git 提交，遠端推送由使用者執行。
+
 ## 來源
 
 - 十月正文：`../reports/2026-10/October_2026_Progress_Report_EN.md`

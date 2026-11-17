@@ -33,7 +33,7 @@ npm run preview
 - 圖集說明：`src/data/gallery.ts`
 - 團隊資料：`src/lib/content.ts`
 - 版面：`src/pages/`、`src/layouts/`、`src/styles/global.css`
-- [編輯指南](docs/CONTENT_GUIDE.md)、[月報範本](docs/POST_TEMPLATE.md)
+- [Pages CMS 組員使用指南](docs/PAGES_CMS_TEAM_GUIDE.md)、[本地編輯指南](docs/CONTENT_GUIDE.md)、[月報範本](docs/POST_TEMPLATE.md)
 - [開發計劃與驗證紀錄](docs/DEVELOPMENT_PLAN.md)、[資產來源](docs/ASSET_SOURCES.md)
 
 十月月報屬於歷史進度快照：月份為 October 2026，整理日期為 10 November 2026。後續成果請新增文章，不直接把未完成項目改成後來的完成狀態。

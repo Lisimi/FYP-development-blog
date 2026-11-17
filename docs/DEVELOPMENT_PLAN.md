@@ -1,9 +1,9 @@
 # Bamboo Vanguard 博客開發計劃
 
 建立日期：2026-11-17  
-目前階段：S0–S3 已完成；S4 等待使用者確認本地效果
+目前階段：S0–S4 已完成，進入日誌日常維護
 交付位置：`G:/test/HKCT/Final Year Project/Project Showcase`  
-技術方向：Astro、TypeScript、Markdown、GitHub Pages；預留 Pages CMS。
+技術方向：Astro、TypeScript、Markdown、GitHub Pages、Pages CMS。
 
 ## 目標與本次範圍
 
@@ -35,7 +35,7 @@
 | S1 Astro 與內容基線 | 安裝依賴、建立嚴格型別內容集合、遷移月報與模型圖、完成基本路由 | 型別檢查與建置成功；文章內容和圖片可載入 | 已完成 |
 | S2 網站介面與本地驗收 | 首頁、日誌搜尋／分類、文章閱讀、圖集、團隊、手機排版 | 瀏覽器檢查導航、文章、互動、圖片和窄屏；保留本地預覽 | 已完成 |
 | S3 協作與部署準備 | Pages CMS 設定、GitHub Pages workflow、維護指南、子路徑檢查 | 本地與專案子路徑均可建置；操作文件齊全；本地 Git 乾淨 | 已完成 |
-| S4 使用者確認與上線 | 收集本地效果意見；其後確認遠端倉庫及發布安排 | 使用者確認後再接入遠端與 CMS 授權 | 等待本地效果確認 |
+| S4 使用者確認與上線 | 收集本地效果意見；其後確認遠端倉庫及發布安排 | 使用者確認後再接入遠端與 CMS 授權 | 已完成（使用者確認網站與組員 CMS 可用） |
 
 ## 每階段維護規則
 
@@ -87,10 +87,15 @@
 - `npm run check` 零錯誤／警告／提示；恢復一般本地建置。驗證腳本及截圖放在 `.local/`，不納入發布或 Git。
 - 尚未驗證：GitHub Actions 遠端執行、Pages 正式網址、Pages CMS 登入／上傳／儲存。這些需要 S4 確定倉庫及授權後才接入，不能把配置完成視為上線成功。
 
-### S4 本地效果確認
+### S4 上線與協作完成（2026-11-17）
 
-- 等待使用者檢視首頁、月報和圖集，提出內容或樣式修改。
-- 確認後再處理遠端倉庫、正式部署與組員 CMS 存取；本次沒有推送或發布。
+- 使用者自行完成 GitHub 倉庫建立、推送、Pages 來源設定及 Pages CMS 授權。
+- 遠端倉庫：`https://github.com/Lisimi/FYP-development-blog`；正式網站：`https://lisimi.github.io/FYP-development-blog/`。
+- 使用者在提交 `b37903f` 加入 `master` push 觸發，提供的 Actions 截圖顯示部署成功，並確認正式網站可正常開啟。
+- 使用者已邀請組員加入同一 Pages CMS 項目，確認可正常使用；依此記錄協作接入完成。本次未由代理逐項重測圖片上傳、草稿和發布流程。
+- 本地透過 `git pull --ff-only` 同步自動部署配置，更新本計劃和 README，建立 S4 本地文件提交；遠端操作繼續由使用者執行。
+- 日常流程：組員登入 CMS、編輯日誌、儲存至 `master`，由 Actions 建置部署；草稿保持 `draft: true`，正式文章設為 `false`。
+- 後續本地開發前先同步 GitHub，避免覆蓋 CMS 更新。獨立圖集項目仍在 `src/data/gallery.ts` 維護。
 
 ## 來源
 

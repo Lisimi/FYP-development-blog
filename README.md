@@ -1,6 +1,10 @@
 # Bamboo Vanguard — Development Journal
 
-Astro 靜態博客，收錄 FYP 英文月報與 Blender 模型圖片。現階段為本地預覽，尚未發布至 GitHub Pages，Pages CMS 尚未授權接入。
+Astro 靜態博客，收錄 FYP 英文月報與 Blender 模型圖片。2026-11-17 使用者確認正式網站可正常開啟，組員已加入同一 Pages CMS 項目並可正常使用。
+
+- 正式網站：[Bamboo Vanguard](https://lisimi.github.io/FYP-development-blog/)
+- 倉庫：[Lisimi/FYP-development-blog](https://github.com/Lisimi/FYP-development-blog)
+- 網頁編輯：[Pages CMS](https://app.pagescms.org/) → 選擇該倉庫及 `master`
 
 ## 本地啟動
 
@@ -34,19 +38,19 @@ npm run preview
 
 十月月報屬於歷史進度快照：月份為 October 2026，整理日期為 10 November 2026。後續成果請新增文章，不直接把未完成項目改成後來的完成狀態。
 
-## GitHub Pages 預留
+## GitHub Pages 部署
 
-`.github/workflows/deploy.yml` 僅接受手動觸發；本地提交及未來一般 push 均不會自動發布。
+`.github/workflows/deploy.yml` 已支援推送到 `master` 自動部署，亦保留手動觸發。本地 commit 不會發布；推送到遠端或 CMS 儲存到該分支才會觸發。
 
-確認效果後的接入流程：
+目前部署方式：
 
-1. 將本目錄作為獨立 GitHub 倉庫根目錄，設定遠端並推送本地 `master`。
-2. 在倉庫 Settings → Pages 選擇 GitHub Actions 作為來源。
-3. 在 Actions 手動執行 `Deploy journal to GitHub Pages`。
-4. workflow 讀取實際網站 origin 和 base path，檢查、建置、上傳及發布；不需在程式內填寫 GitHub 使用者名稱。
-5. 成功後核對正式文章、圖片及手機版，再決定是否在 workflow 加入 `push: { branches: [master] }`，讓組員修改日誌後自動更新。
+1. 本目錄為獨立倉庫根目錄，使用 `master` 分支。
+2. 倉庫 Settings → Pages 的來源為 GitHub Actions。
+3. 更新推送後，在 Actions 查看 `Deploy journal to GitHub Pages`；亦可使用 Run workflow 手動執行。
+4. workflow 讀取實際網站 origin 和 base path，檢查、建置、上傳及發布。
+5. 等待部署成功，再核對正式網站的文章與圖片。若部署失敗，查看失敗步驟的日誌，修正後重新提交。
 
-若預設分支改名，啟用自動發布時同步使用實際分支名稱。初次遠端部署與權限狀態尚未驗證。
+若預設分支改名，同步修改 workflow 的觸發分支和 CMS 選擇的分支。本地開發前先執行 `git pull --ff-only`，同步組員透過 CMS 儲存的內容。
 
 模擬專案子路徑（以下域名只供本地測試）：
 
@@ -60,10 +64,10 @@ npm run preview
 
 然後訪問預覽服務的 `/bamboo-vanguard/`。回到一般本地開發前，在同一終端清除 `SITE_URL`、`BASE_PATH` 並重新啟動服務；例如 `Remove-Item Env:SITE_URL, Env:BASE_PATH`。
 
-## Pages CMS 預留
+## Pages CMS 編輯
 
-根目錄 `.pages.yml` 已定義文章欄位、三位作者、分類與媒體路徑。它是配置檔，不是已啟動的管理後台。
+根目錄 `.pages.yml` 定義文章欄位、三位作者、分類與媒體路徑。Pages CMS 已由使用者接入，組員透過邀請加入同一項目。
 
-待遠端倉庫確定後，由倉庫擁有者在 [Pages CMS](https://app.pagescms.org/) 接入指定倉庫，選擇實際分支，再安排組員權限。CMS 儲存的是 GitHub 中的 Markdown／圖片；網站更新取決於部署 workflow，手動模式下需另外執行發布。首次接入須驗證新草稿、圖片上傳、作者多選與儲存後建置。
+登入後選擇 `FYP-development-blog` 的 `master` 分支，在 Development journal 新增或編輯日誌。CMS 將 Markdown／圖片儲存到 GitHub，觸發自動部署。保留 Draft 開啟可儲存未公開於網站的草稿，準備發布時關閉 Draft 並儲存。作者欄位為署名，不限制組員只能修改自己的文章；同時編輯前先約定負責內容。詳細步驟見[編輯指南](docs/CONTENT_GUIDE.md)。
 
 配置參考：[Astro GitHub Pages](https://docs.astro.build/en/guides/deploy/github/)、[GitHub Pages workflow](https://github.com/actions/starter-workflows/blob/main/pages/astro.yml)、[Pages CMS content](https://pagescms.org/docs/configuration/content/)、[media](https://pagescms.org/docs/configuration/media/)。

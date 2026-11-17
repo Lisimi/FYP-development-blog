@@ -1,0 +1,19 @@
+---
+import { url } from '../lib/content';
+interface Props { title: string; description?: string; }
+const { title, description = 'The development journal of Bamboo Vanguard, a dual-form action game. Follow our gameplay prototypes, panda character art and monthly progress.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · Bamboo Vanguard</title>
+  </head>
+  <body>
+    <header><a href={url()}>Bamboo Vanguard</a><nav aria-label="Main navigation"><a href={url('journal/')}>Journal</a></nav></header>
+    <main><slot /></main>
+    <footer>A student game, one step at a time.</footer>
+  </body>
+</html>

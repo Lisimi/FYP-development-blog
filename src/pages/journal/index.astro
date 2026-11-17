@@ -1,0 +1,9 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { publishedEntries, url } from '../../lib/content';
+const entries = await publishedEntries();
+---
+<SiteLayout title="Development journal">
+  <h1>Development journal</h1>
+  {entries.map((entry) => <article><h2><a href={url(`journal/${entry.id}/`)}>{entry.data.title}</a></h2><p>{entry.data.description}</p></article>)}
+</SiteLayout>

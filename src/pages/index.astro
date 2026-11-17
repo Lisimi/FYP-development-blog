@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { publishedEntries, url } from '../lib/content';
+const entries = await publishedEntries();
+---
+<SiteLayout title="Development journal">
+  <h1>Bamboo Vanguard</h1>
+  <p>A dual-form action game. A journal of making it.</p>
+  {entries.map((entry) => <article><h2><a href={url(`journal/${entry.id}/`)}>{entry.data.title}</a></h2><p>{entry.data.description}</p></article>)}
+</SiteLayout>

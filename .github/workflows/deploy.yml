@@ -2,6 +2,8 @@ name: Deploy journal to GitHub Pages
 
 # Enable automatic pushes only after the local preview has been approved.
 on:
+  push:
+    branches: [master]
   workflow_dispatch:
 
 permissions:

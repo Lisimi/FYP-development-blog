@@ -21,7 +21,7 @@ draft: false
 
 The work covered by this October update established a playable movement prototype in Unity and a developing panda character in Blender. The main focus was to test the game's distinctive dual-form controls, ball movement and environmental interactions before building the full combat and level progression systems.
 
-The Unity prototype now supports movement, form switching, charging, dashing, collision responses and speed-boost areas. Enemy health and automatic target selection have also been tested in the editor. Character production has progressed from reference drawings and a base model to a connected character mesh, a 37-bone test rig and weapon-holding poses.
+The Unity prototype now supports movement, form switching, charging, dashing, collision responses and speed-boost areas. In editor tests, the player selected the nearest visible target and switched targets when a wall blocked the nearer one. Character production has progressed from reference drawings and a base model to a connected character mesh, a 37-bone test rig and weapon-holding poses.
 
 Two areas remain in progress: connecting automatic firing and reloading to the gameplay loop, and achieving a convincing panda curl within the target diameter of 1 metre. The current Unity prototype uses temporary Robot and Slime assets; the custom panda has not yet been integrated into the game.
 
@@ -50,6 +50,14 @@ The prototype includes top-down camera following, normal movement, normal-to-bal
 
 Input cancellation handling has also been implemented for events such as moving off the action button or losing focus. Mobile multi-touch and application interruption behaviour still require device testing.
 
+![Robot and on-screen controls in the test arena](/images/october-controls.png)
+
+*Figure 1. The joystick at the lower left controls movement. The button at the lower right switches form.*
+
+![Action button and partially filled charge bar](/images/october-charge.png)
+
+*Figure 2. Holding the action button in ball form fills the charge bar beneath it.*
+
 ### 3.2 Animation integration
 
 The temporary Robot model's existing animation clips were reused through a dedicated gameplay Animator Controller. Animation is driven by the player's form and actual movement speed, keeping visual playback separate from the physics logic.
@@ -66,11 +74,25 @@ Movement was refined after testing showed that a sudden reverse input produced a
 
 These tests validate the movement prototype. Ball-impact damage and interactions with fully implemented enemy AI remain separate tasks.
 
-### 3.4 Enemy health and automatic targeting
+![Ball Bounce Surface component in the Unity Inspector](/images/october-bounce.png)
 
-A Slime model from the RPG Monster DUO PBR Polyart asset pack was configured as a stationary test enemy. A shared health component handles damage and issues a single death notification when health reaches zero. With test values of 100 health and 25 damage per hit, four manual damage applications correctly disabled the target.
+*Figure 3. The elastic surface uses a speed multiplier of 2 in this setup. The overall speed cap still applies.*
 
-Automatic target selection was then added. It filters targets by range, visibility, enabled state and remaining health. Ball form clears the shooting target, and returning to normal form allows selection to resume. The target-selection functionality has been confirmed in editor testing.
+![Ball Speed Boost Zone component in the Unity Inspector](/images/october-boost.png)
+
+*Figure 4. The boost zone has a configured speed of 12. Logging is enabled for testing.*
+
+### 3.4 Automatic target selection
+
+Stationary Slime models from the RPG Monster DUO PBR Polyart pack served as targets. In normal form, the player selects the nearest visible enemy within range. A wall blocking that enemy makes the selector look for another visible target. Switching to ball form clears the selection. Returning to normal form resumes the search.
+
+![Green selection line pointing to the slime on the left](/images/october-target-near.png)
+
+*Figure 5. The green line identifies the nearest visible target within the yellow range circle.*
+
+![Wall highlighted in red and green line pointing to the slime on the right](/images/october-target-blocked.png)
+
+*Figure 6. With the wall blocking the nearer slime, the selector chooses the visible slime on the right.*
 
 ### 3.5 Shooting and reloading in progress
 
@@ -102,7 +124,7 @@ The existing gun was attached to the right-hand reference point, and preliminary
 
 ![Panda holding its bamboo-inspired gun in the current Blender motion study](</images/pando-hold.png>)
 
-*Figure 1. Current Blender weapon-holding pose with revised clothing weights. The character has not yet been integrated into Unity.*
+*Figure 7. Current Blender weapon-holding pose with revised clothing weights. The character has not yet been integrated into Unity.*
 
 ### 4.4 Curling limitation
 
@@ -112,7 +134,7 @@ The next revision must improve the spatial relationship between the head, torso,
 
 ![Side view of the current panda curling candidate](</images/pando-curl-study.png>)
 
-*Figure 2. Curling study requiring further revision. This candidate does not meet the 1-metre diameter target and is not an accepted final ball form.*
+*Figure 8. Curling study requiring further revision. This candidate does not meet the 1-metre diameter target and is not an accepted final ball form.*
 
 ## 5 Problems and responses
 
@@ -130,8 +152,10 @@ The next revision must improve the spatial relationship between the head, torso,
 
 | Member | Responsibility and work covered in this update | Main outputs |
 | --- | --- | --- |
-| LI Shimin | Programming and Unity prototype integration: movement, form control, charging, animation connection, collisions, boost areas, health and targeting; editor configuration, testing and feedback; initial projectile and magazine work | Gameplay scripts, sandbox configuration, test results and updated implementation records |
+| LI Shimin | Programming and Unity prototype integration: movement, form control, charging, animation connection, collisions, boost areas and targeting; editor configuration, testing and feedback; initial projectile and magazine work | Gameplay scripts, sandbox configuration, test results and updated implementation records |
 | Chau Chi Chung | Character modelling: panda design and proportion refinement, Blender model development, topology and rigging preparation, clothing-weight correction, weapon-holding and curling studies | Versioned Blender source models, design references, multi-angle renders and deformation-check records |
+
+In November, LI Shimin set up the team’s development journal for monthly reports. Members can edit entries and upload screenshots through Pages CMS. GitHub Actions builds the Astro site and publishes updates to GitHub Pages.
 
 The development workflow used AI-assisted code drafting, modelling scripts and documentation. Design decisions, review, Unity configuration and practical testing formed part of the development process. Temporary Robot and Slime assets are identified as third-party test resources rather than original character work.
 
@@ -141,7 +165,7 @@ The development workflow used AI-assisted code drafting, modelling scripts and d
 | --- | --- |
 | Movement, form switching, charging and Robot animation | Core behaviours confirmed in Unity editor testing |
 | Bounce surfaces, boost areas and collision combinations | Editor prototype testing confirmed; real-enemy integration still pending |
-| Enemy health and target selection | Editor testing confirmed |
+| Nearest-target selection and wall obstruction | Editor testing confirmed |
 | Projectiles and magazine logic | Code and isolated checks completed; integrated firing and reload behaviour pending |
 | Panda appearance and hand structure | Accepted as the basis for further pose work |
 | Panda holding poses and clothing weights | Revision and pose studies completed; final animation acceptance pending |

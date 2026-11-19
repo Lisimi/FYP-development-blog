@@ -10,125 +10,148 @@ cover: /images/mapprogress1.png
 coverAlt: Demo routes
 draft: false
 ---
-```markdown
-# 2026年11月開發進度報告
-
-## 專案名稱
-**Bamboo Vanguard**（暫定）
-
-## 本月重點
-截至 2026 年 11 月，本月主要完成了 Unity 3D 場景與地形的基礎搭建，並逐步把整體關卡輪廓、玩家路線、Boss 區域與敵人配置位置規劃清楚。這一階段的目標不是完成所有玩法，而是先把可玩的地圖骨架建立起來，讓後續的角色控制、敵人生成、戰鬥系統與關卡流程可以直接接上。
-
-## 已完成內容
-
-### 1. 中央保護區完成
-場景中央已建立成玩家需要防守的核心區域，也就是 loot / player camp 的位置。這個區域會作為第一階段的重點，玩家需要在這裡保護資源，同時應對敵人的接近與搶奪。
-
-### 2. 螺旋上山道路完成
-地圖已規劃出一條由中央區域通往 Boss 區域的螺旋山路。這條道路不是單純平放的路面，而是配合地形高低差設計成一條逐步上升的斜坡，讓玩家可以從中心往右側高地移動到 Boss 區域。
-
-### 3. Boss 區域完成定位
-Boss 區域已放在地圖右側、整張地圖最高的位置。這個安排讓 Boss 區域在視覺上更有壓迫感，也能讓玩家在推進到高處時有明確的目標感。
-
-### 4. 外圍山體完成
-為了避免玩家直接看到地形外部的空白邊界，目前已在場景外圍建立山體包圍，讓整張地圖看起來更完整，也能增加封閉戰場的感覺。
-
-### 5. 手動地形與斜坡修正完成
-目前地形是以手動方式搭建，同時也使用原始地圖的 raw heightmap 檔案進行調整。原本的道路是平的，經過編修 raw 檔後，已成功做出較平滑的上坡路段，讓玩家可以自然地走上 Boss 區域。
-
-### 6. 敵人出生點初步規劃
-目前初步估計會設置三個敵人出生點。暫定位置包括：
-- 斜坡道路上的平台區
-- 中央區域旁邊
-- 靠近上山路線的中段位置
-
-這樣的配置可以讓敵人分佈更平均，也能增加玩家在中心區與山路上的壓力。
-
-### 7. Terrain 尺寸設定完成
-目前 Terrain 尺寸設定如下：
-- 寬度：300
-- 長度：250
-- 高度：600
-
-這個比例足以支撐目前的地圖結構，也方便後續再微調山體高度、道路坡度與區域分佈。
-
-## 圖像紀錄
-
-### 圖 1：地圖路線與區域規劃
-從俯視圖可以看到中央區域、環狀道路與通往右上方 Boss 區的路線規劃。紅色標記顯示主要行走動線，A、B、C 則用來標示目前在討論中的區域位置。
 
 
-```
+# November 2026 Development Progress Report
 
-![image.png](/images/image.png)
+## Project Title
 
-```markdown
+**Bamboo Vanguard**
+
+## Monthly Summary
+
+During November 2026, I focused on building the Unity 3D scene and laying out the core terrain structure for the game map. The main goal of this stage was not to finish all gameplay systems, but to establish a playable map skeleton so that character control, enemy spawning, combat, and mission flow can be added later without needing to rebuild the environment.
+
+## Completed Work
+
+### 1. Central Protection Area
+
+The center of the scene has been built as the main area that the player needs to protect. This is the player camp / loot protection zone, and it will be the core location for the first stage of gameplay. The player will need to defend this area while dealing with enemy pressure and resource theft.
+
+### 2. Spiral Mountain Road
+
+A spiral mountain road has been designed from the center of the scene toward the boss area. Instead of using a flat road, the path is shaped as a gradually rising slope so the player can move naturally from the center up to the higher ground near the boss area.
+
+### 3. Boss Area Placement
+
+The boss area is located on the right side of the map, and it is positioned at the highest part of the terrain. This makes the boss zone visually clear and gives the player a strong sense of progress when moving upward through the map.
+
+### 4. Surrounding Mountain Boundary
+
+The outer part of the map is covered by surrounding mountains so that players cannot easily see beyond the terrain boundary. This helps make the scene feel more complete and enclosed, while also improving the overall atmosphere of the level.
+
+### 5. Manual Terrain Construction and Slope Editing
+
+The terrain was built manually, and the smooth slope road was created by editing the original raw heightmap file. The original road was flat, but after modifying the raw file, it now forms a smoother uphill path that allows the player to reach the boss area more naturally.
+
+### 6. Enemy Spawn Planning
+
+I estimate that there will be three enemy spawn points in the final map. At the moment, the most likely placements are:
+
+- on the platform along the slope road
+- beside the central area
+- near the mid-point of the upward route
+
+These positions should help distribute enemy pressure across the map and make both the center area and the mountain road more active during gameplay.
+
+### 7. Terrain Size
+
+The current terrain settings are:
+
+- Width: 300
+- Length: 250
+- Height: 600
+
+This size is suitable for the current map layout and leaves enough room for future tuning of slopes, mountain height, and combat space.
 
 
-### 圖 2：3D 視角地形概覽
-此圖可看到整體地形的立體效果，包括中央區、環繞山體、右側高地與上山道路。這張圖主要用來確認地形比例、視覺層次，以及玩家在場景中的移動方向。
+
+---
 
 
-```
 
-![image.png](/images/image-1.png)
+## Visual Record
 
-```markdown
+### Figure 1: Map Route and Area Planning
 
-
-### 圖 3：Terrain 圖層與材質設定
-此圖記錄 Terrain 的材質與圖層配置，可作為後續地表貼圖、雪地、草地與岩石過渡的基礎參考。
+This top-down view shows the central area, the circular route, and the main path leading to the boss area on the upper-right side. The red markings indicate the intended movement flow, while A, B, and C mark the currently discussed placement areas.
 
 
-```
 
-![image.png](/images/image-3.png)
-
-```markdown
+![image.png](/images/image-8.png)
 
 
-### 圖 4：Terrain 尺寸設定
-此圖顯示目前 Terrain 的寬度、長度與高度參數，方便日後在報告中說明地圖規模與設計依據。
+
+### Figure 2: 3D Terrain Overview
+
+This image shows the overall 3D terrain shape, including the central zone, the surrounding mountain walls, the right-side high ground, and the uphill road. It is mainly used to check the map proportions, visual depth, and player movement direction.
 
 
-```
 
-![image.png](/images/image-4.png)
-
-```markdown
+![image.png](/images/image-9.png)
 
 
-### 圖 5：地形高度圖與道路編修結果
-此圖用來說明原始高度圖與道路調整的結果。外圈路線、中央區以及右側高地的位置已經有明確的高度差與動線關係。
+
+### Figure 3: Terrain Layer and Material Setup
+
+This screenshot records the terrain layer and material configuration. It will be useful as a reference for future surface blending, including grass, rock, snow, and transition areas.
 
 
-```
 
-![image.png](/images/image-5.png)
-
-```markdown
+![image.png](/images/image-10.png)
 
 
-## 目前成果總結
-目前已完成的部分屬於地圖底層架構，包含：
-- 中央防守區
-- 螺旋上山道路
-- Boss 區定位
-- 外圍山體包覆
-- Terrain 尺寸與圖層設定
-- 原始高度圖修正
 
-這代表專案已從概念階段進入到可demo試玩地圖的階段。接下來可以直接在這個場景上加入角色、敵人生成、戰鬥邏輯與任務流程。
+### Figure 4: Terrain Size Settings
 
-## 下一步計畫
-1. 確認三個敵人出生點的最終位置。
-2. 測試玩家從中央區到 Boss 區的移動流暢度。
-3. 加入基本敵人 AI 與生成機制。
-4. 開始處理資源保護、偷取與回收的核心玩法。
-5. 進一步優化地形邊緣、道路坡度與場景可視範圍。
+This screenshot shows the current terrain width, length, and height values. It provides a clear reference for the scale of the map.
 
-## 備註
-本月工作重點集中在場景結構與地形設計，尚未進入完整戰鬥系統與最終關卡平衡調整。此版本可作為之後進度報告、簡報或 Interim Report 的基礎內容。
 
-```
+
+![image.png](/images/image-11.png)
+
+
+
+### Figure 5: Heightmap and Road Editing Result
+
+This image shows the raw heightmap editing result and the final road layout. The outer route, central area, and right-side elevated region now have a clearer height relationship and movement direction.
+
+
+
+![image.png](/images/image-12.png)
+
+
+
+&nbsp;
+
+---
+
+
+
+## Overall Progress
+
+The current work is mainly the foundation of the map structure, including:
+
+- the central defense zone
+- the spiral mountain road
+- the boss area placement
+- the outer mountain boundary
+- terrain sizing and layer setup
+- heightmap editing and road shaping
+
+This means the project has moved from the concept stage into a stage where the map can already support real gameplay development. The next step is to build on this scene by adding the player character, enemy spawning, combat logic, and mission flow.
+
+## Next Steps
+
+1. Confirm the final positions of the three enemy spawn points.
+2. Test whether the path from the central area to the boss area feels smooth and readable.
+3. Add basic enemy AI and spawn mechanics.
+4. Begin implementing the resource protection, theft, and recovery gameplay loop.
+5. Continue refining the terrain edges, road slope, and visible play area.
+
+## Notes
+
+This month’s work focused mainly on the scene structure and terrain design (For my part). The combat system and full level balancing have not been completed yet. However, this version provides a solid base for the future progress report, presentation slides, and interim report.
+
+
 

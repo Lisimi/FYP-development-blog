@@ -10,8 +10,6 @@ cover: /images/mapprogress1.png
 coverAlt: Demo routes
 draft: false
 ---
-
-
 # November 2026 Development Progress Report
 
 ## Project Title
@@ -155,3 +153,4 @@ This month’s work focused mainly on the scene structure and terrain design (Fo
 
 
 
+&nbsp;

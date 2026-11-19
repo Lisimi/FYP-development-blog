@@ -8,7 +8,7 @@ authors:
 category: Art
 cover: /images/mapprogress1.png
 coverAlt: Demo routes
-draft: true
+draft: false
 ---
 ```markdown
 # 2026年11月開發進度報告
